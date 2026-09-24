@@ -1,0 +1,81 @@
+2026-09-24 17:38:20,292 | INFO | === Inicio de extraccion API BCRPData (Tema 22) ===
+2026-09-24 17:38:20,292 | INFO | Periodo solicitado: 2015-01-01 a 2025-12-31
+2026-09-24 17:38:21,673 | INFO | Serie PD04692MD | HTTP 200 | filas descargadas: 2870 | URL: https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04692MD/json/2015-01-01/2025-12-31/esp
+2026-09-24 17:38:22,805 | INFO | Serie PD12301MD | HTTP 200 | filas descargadas: 2870 | URL: https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD12301MD/json/2015-01-01/2025-12-31/esp
+2026-09-24 17:38:23,998 | INFO | Serie PD04679MD | HTTP 200 | filas descargadas: 2870 | URL: https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04679MD/json/2015-01-01/2025-12-31/esp
+2026-09-24 17:38:24,991 | INFO | Serie PD04668MD | HTTP 200 | filas descargadas: 2870 | URL: https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04668MD/json/2015-01-01/2025-12-31/esp
+2026-09-24 17:38:25,977 | INFO | Serie PD04665MD | HTTP 200 | filas descargadas: 2870 | URL: https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD04665MD/json/2015-01-01/2025-12-31/esp
+2026-09-24 17:38:26,094 | INFO | CSV individual guardado: C:\Users\Usuario\Documents\python\codigo\..\datos_crudos\datos_crudos_api_2024200505K_tasa_interbancaria_on_end.csv
+2026-09-24 17:38:26,096 | INFO | CSV individual guardado: C:\Users\Usuario\Documents\python\codigo\..\datos_crudos\datos_crudos_api_2024200505K_tasa_referencia_exo.csv
+2026-09-24 17:38:26,098 | INFO | CSV individual guardado: C:\Users\Usuario\Documents\python\codigo\..\datos_crudos\datos_crudos_api_2024200505K_tasa_cdbcrp_saldo_exo.csv
+2026-09-24 17:38:26,102 | INFO | CSV individual guardado: C:\Users\Usuario\Documents\python\codigo\..\datos_crudos\datos_crudos_api_2024200505K_depositos_sector_publico_saldo_exo.csv
+2026-09-24 17:38:26,104 | INFO | CSV individual guardado: C:\Users\Usuario\Documents\python\codigo\..\datos_crudos\datos_crudos_api_2024200505K_cuentas_corrientes_bancos_bcrp_saldo_exo.csv
+2026-09-24 17:38:26,104 | INFO | Filas descargadas: 2870
+2026-09-24 17:38:26,104 | INFO | JSON crudo guardado en: C:\Users\Usuario\Documents\python\codigo\..\datos_crudos\datos_crudos_api_2024200505K.json
+2026-09-24 17:38:26,105 | INFO | CSV crudo combinado guardado en: C:\Users\Usuario\Documents\python\codigo\..\datos_crudos\datos_crudos_api_2024200505K.csv
+2026-09-24 17:38:26,105 | INFO | CSV individuales por variable guardados: 5
+2026-09-24 17:38:26,105 | INFO | === Fin de extraccion API BCRPData (Tema 22) ===
+2026-09-24 17:38:26,623 | INFO | === Inicio de limpieza de datos (Tema 22) ===
+2026-09-24 17:38:26,649 | INFO | Filas leidas del crudo API: 2870
+2026-09-24 17:38:26,649 | INFO | No se encontro C:\Users\Usuario\Documents\python\codigo\..\datos_crudos\datos_crudos_scraping_2024200505K.csv. Se continua solo con la Via 1 (API); esto es valido para Unidad I.
+2026-09-24 17:38:26,649 | INFO | Conteo de NaN por variable (antes de tratar):
+tasa_interbancaria_on_end                   131
+tasa_referencia_exo                         107
+tasa_cdbcrp_saldo_exo                       128
+depositos_sector_publico_saldo_exo          128
+cuentas_corrientes_bancos_bcrp_saldo_exo    128
+2026-09-24 17:38:26,652 | INFO | tasa_interbancaria_on_end: 131 interpolados, 0 con bfill de borde inicial, 0 con ffill de borde final.
+2026-09-24 17:38:26,657 | INFO | tasa_referencia_exo: 107 interpolados, 0 con bfill de borde inicial, 0 con ffill de borde final.
+2026-09-24 17:38:26,657 | INFO | tasa_cdbcrp_saldo_exo: 126 interpolados, 2 con bfill de borde inicial, 0 con ffill de borde final.
+2026-09-24 17:38:26,657 | INFO | depositos_sector_publico_saldo_exo: 126 rellenados con forward-fill (max. 5 dias), 2 con bfill de borde inicial; 0 siguen en NaN (huecos de mas de 5 dias, dejados sin inventar).
+2026-09-24 17:38:26,657 | INFO | cuentas_corrientes_bancos_bcrp_saldo_exo: 126 rellenados con forward-fill (max. 5 dias), 2 con bfill de borde inicial; 0 siguen en NaN (huecos de mas de 5 dias, dejados sin inventar).
+2026-09-24 17:38:26,657 | INFO | cuentas_corrientes_bancos_bcrp_saldo_exo: 1 valores marcados como outlier (fuera de +/- 4 desv. estandar). NO se eliminan, solo se marcan.
+2026-09-24 17:38:26,657 | INFO | Rezago aplicado: cuentas_corrientes_bancos_bcrp_saldo_exo -> cuentas_corrientes_bancos_bcrp_saldo_exo_L1 (shift de 1 dia(s)); 1 fila(s) iniciales con bfill.
+2026-09-24 17:38:26,684 | INFO | Filas finales en datos_procesados: 2870
+2026-09-24 17:38:26,700 | INFO | Columnas finales: ['fecha', 'tasa_interbancaria_on_end', 'tasa_referencia_exo', 'tasa_cdbcrp_saldo_exo', 'depositos_sector_publico_saldo_exo', 'cuentas_corrientes_bancos_bcrp_saldo_exo', 'cuentas_corrientes_bancos_bcrp_saldo_exo_L1', 'cuentas_corrientes_bancos_bcrp_saldo_exo_L1_metodo_imputacion', 'tasa_interbancaria_on_end_metodo_imputacion', 'tasa_referencia_exo_metodo_imputacion', 'tasa_cdbcrp_saldo_exo_metodo_imputacion', 'depositos_sector_publico_saldo_exo_metodo_imputacion', 'cuentas_corrientes_bancos_bcrp_saldo_exo_metodo_imputacion', 'tasa_interbancaria_on_end_outlier', 'tasa_referencia_exo_outlier', 'tasa_cdbcrp_saldo_exo_outlier', 'depositos_sector_publico_saldo_exo_outlier', 'cuentas_corrientes_bancos_bcrp_saldo_exo_outlier']
+2026-09-24 17:38:26,700 | INFO | Variable exogena 4 para el modelo (rezagada): cuentas_corrientes_bancos_bcrp_saldo_exo_L1
+2026-09-24 17:38:26,700 | INFO | Archivo procesado guardado en: C:\Users\Usuario\Documents\python\codigo\..\datos_procesados\datos_procesados_2024200505K.csv
+2026-09-24 17:38:26,700 | INFO | HASH SHA-256 del archivo procesado: 8c3a2a07b92ac92b5369bd69e96a3bcb2d89b1398f8f4915a413930abdb97c59
+2026-09-24 17:38:26,700 | INFO | (Este hash va en el README.md, en la seccion de verificacion)
+2026-09-24 17:38:26,700 | INFO | === Fin de limpieza de datos (Tema 22) ===
+2026-09-24 17:38:28,736 | INFO | === Inicio de analisis (Tema 22) ===
+2026-09-24 17:38:28,763 | INFO | Filas cargadas desde datos_procesados: 2870
+2026-09-24 17:38:28,776 | INFO | Datos de analisis guardados en: C:\Users\Usuario\Documents\python\codigo\..\salidas\datos_analisis_2024200505K.csv
+2026-09-24 17:38:28,782 | INFO | Tabla de descriptivos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_descriptivos_2024200505K.csv
+2026-09-24 17:38:28,784 | INFO | Tabla de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_correlacion_2024200505K.csv
+2026-09-24 17:38:28,953 | INFO | Figura de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_correlacion_2024200505K.png
+2026-09-24 17:38:29,058 | INFO | Figura interbancaria vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_interbancaria_vs_referencia_2024200505K.png
+2026-09-24 17:38:29,150 | INFO | Figura de variables de liquidez guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_variables_liquidez_2024200505K.png
+2026-09-24 17:38:29,150 | INFO | Regresion OLS con errores Newey-West (HAC), maxlags=8
+2026-09-24 17:38:29,166 | INFO | 
+                                OLS Regression Results                               
+=====================================================================================
+Dep. Variable:     tasa_interbancaria_on_end   R-squared:                       0.995
+Model:                                   OLS   Adj. R-squared:                  0.995
+Method:                        Least Squares   F-statistic:                 3.543e+05
+Date:                       Thu, 24 Sep 2026   Prob (F-statistic):               0.00
+Time:                               17:38:29   Log-Likelihood:                 1389.8
+No. Observations:                       2870   AIC:                            -2770.
+Df Residuals:                           2865   BIC:                            -2740.
+Df Model:                                  4                                         
+Covariance Type:                         HAC                                         
+=========================================================================================
+                            coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     1.0188      0.356      2.858      0.004       0.320       1.717
+tasa_referencia_exo       1.0314      0.012     84.260      0.000       1.007       1.055
+tasa_cdbcrp_saldo_exo    -0.0307      0.012     -2.537      0.011      -0.054      -0.007
+ln_depositos             -0.0776      0.029     -2.689      0.007      -0.134      -0.021
+ln_ctacte_L1             -0.0204      0.007     -2.875      0.004      -0.034      -0.007
+==============================================================================
+Omnibus:                     2206.655   Durbin-Watson:                   0.433
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           235874.321
+Skew:                           2.914   Prob(JB):                         0.00
+Kurtosis:                      47.028   Cond. No.                         547.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 8 lags and without small sample correction
+2026-09-24 17:38:29,166 | INFO | Tabla de resultados de la regresion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_regresion_2024200505K.csv
+2026-09-24 17:38:29,166 | INFO | R2 = 0.9948 | R2 ajustado = 0.9948 | N = 2870 | maxlags HAC = 8
+2026-09-24 17:38:29,166 | INFO | === Fin de analisis (Tema 22) ===

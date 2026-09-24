@@ -1,0 +1,5 @@
+# Los datos se guardan byte a byte, sin convertir saltos de linea,
+# para que el hash SHA-256 del README coincida al descargarlos.
+*.csv -text
+*.json -text
+*.txt -text
