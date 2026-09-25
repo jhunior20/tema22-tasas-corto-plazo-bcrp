@@ -6,6 +6,28 @@
 """
 04_analisis.py
 
+TEMA N.22: Tasas de corto plazo en el Peru: interbancaria, certificados
+del BCRP y tasa de referencia.
+
+OBJETIVO DE INVESTIGACION: Analizar la formacion de las tasas de muy
+corto plazo y su desvio respecto de la tasa de politica.
+
+Como responde este script al objetivo:
+
+1) FORMACION de la tasa de muy corto plazo: regresion de la tasa
+   interbancaria overnight sobre la tasa de politica, la tasa de los
+   CD BCRP y los dos factores de liquidez (ver el modelo mas abajo).
+
+2) DESVIO respecto de la tasa de politica: se calcula, dia por dia,
+       desvio = interbancaria - referencia   (en puntos porcentuales)
+   y se resume por anio (tabla y figura). Como el desvio es la
+   endogena menos la tasa de referencia, el mismo modelo lo explica:
+       desvio = b0 + (b1 - 1)*referencia + b2*cdbcrp
+                   + b3*ln(depositos) + b4*ln(ctacte_L1) + error
+   Por eso b2, b3 y b4 miden tambien el efecto de cada variable sobre
+   el desvio, y la prueba H0: b1 = 1 (traspaso completo de la tasa de
+   politica) indica si el desvio cambia con el nivel de esa tasa.
+
 Estimaciones, tablas y figuras del articulo, generadas desde el archivo
 procesado y guardadas en /salidas, tal como exige el numeral 2.4.2 de
 la consigna.
@@ -15,9 +37,12 @@ Output: /salidas/datos_analisis_<codigo>.csv
         /salidas/tabla_descriptivos_<codigo>.csv
         /salidas/tabla_correlacion_<codigo>.csv
         /salidas/tabla_regresion_<codigo>.csv
+        /salidas/tabla_prueba_traspaso_<codigo>.csv
+        /salidas/tabla_desvio_por_anio_<codigo>.csv
         /salidas/fig_interbancaria_vs_referencia_<codigo>.png
         /salidas/fig_variables_liquidez_<codigo>.png
         /salidas/fig_correlacion_<codigo>.png
+        /salidas/fig_desvio_interbancaria_<codigo>.png
 
 Modelo estimado (variable endogena ~ 4 exogenas), en niveles para las
 tasas y en logaritmo natural para las 2 variables de liquidez (estan en
@@ -81,6 +106,10 @@ COL_EXO1_REFERENCIA = "tasa_referencia_exo"
 COL_EXO2_CDBCRP = "tasa_cdbcrp_saldo_exo"
 COL_EXO3_DEPOSITOS = "depositos_sector_publico_saldo_exo"
 COL_EXO4_CTACTE_L1 = "cuentas_corrientes_bancos_bcrp_saldo_exo_L1"
+
+# Desvio de la interbancaria respecto de la tasa de politica (se calcula
+# en memoria en este script; no esta en datos_procesados)
+COL_DESVIO = "desvio_interbancaria_referencia_pp"
 
 COLUMNAS_ANALISIS = [
     COL_FECHA, COL_ENDOGENA, COL_EXO1_REFERENCIA, COL_EXO2_CDBCRP,
@@ -180,7 +209,61 @@ def figura_variables_liquidez(df, ruta_salida):
 
 
 # ---------------------------------------------------------------------------
-# 6) REGRESION (series de tiempo, errores Newey-West / HAC)
+# 6) DESVIO DE LA INTERBANCARIA RESPECTO DE LA TASA DE POLITICA
+# ---------------------------------------------------------------------------
+def calcular_desvio(df):
+    """Desvio diario de la interbancaria respecto de la tasa de
+    referencia, en puntos porcentuales (pp). Positivo = la interbancaria
+    esta por encima de la tasa de politica. Se redondea a 6 decimales
+    solo para quitar el ruido de la resta en coma flotante (ej. 3.55 -
+    3.5 = 0.0499999...), sin cambiar ningun valor real."""
+    df = df.copy()
+    df[COL_DESVIO] = (df[COL_ENDOGENA] - df[COL_EXO1_REFERENCIA]).round(6)
+    return df
+
+
+def resumir_desvio(desvio):
+    return {
+        "n_dias": len(desvio),
+        "desvio_medio_pp": desvio.mean(),
+        "desvio_absoluto_medio_pp": desvio.abs().mean(),
+        "desv_estandar_pp": desvio.std(),
+        "desvio_min_pp": desvio.min(),
+        "desvio_max_pp": desvio.max(),
+        "pct_dias_sobre_referencia": (desvio > 0).mean() * 100,
+        "pct_dias_igual_referencia": (desvio == 0).mean() * 100,
+        "pct_dias_bajo_referencia": (desvio < 0).mean() * 100,
+    }
+
+
+def tabla_desvio_por_anio(df):
+    """Resumen del desvio por anio y para toda la muestra (ultima fila):
+    cuanto se aleja en promedio la interbancaria de la tasa de politica,
+    que tan volatil es ese desvio y en que proporcion de dias queda por
+    encima, igual o por debajo de la referencia."""
+    anios = df[COL_FECHA].dt.year
+    filas = [
+        {"periodo": str(anio), **resumir_desvio(desvio)}
+        for anio, desvio in df[COL_DESVIO].groupby(anios)
+    ]
+    filas.append({"periodo": f"{anios.min()}-{anios.max()}", **resumir_desvio(df[COL_DESVIO])})
+    return pd.DataFrame(filas)
+
+
+def figura_desvio(df, ruta_salida):
+    fig, ax = plt.subplots(figsize=(10, 4.5))
+    ax.plot(df[COL_FECHA], df[COL_DESVIO], label="Interbancaria - referencia", linewidth=0.8)
+    ax.axhline(0, color="black", linewidth=0.8, linestyle="--", label="Sin desvio")
+    ax.set_ylabel("Puntos porcentuales")
+    ax.set_title("Desvio de la interbancaria respecto de la tasa de referencia (2015-2025)")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(ruta_salida, dpi=150)
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------------------
+# 7) REGRESION (series de tiempo, errores Newey-West / HAC)
 # ---------------------------------------------------------------------------
 def preparar_variables_regresion(df):
     """Aplica logaritmo natural SOLO en memoria, solo para la
@@ -240,8 +323,26 @@ def tabla_resultados_regresion(modelo):
     return tabla
 
 
+def prueba_traspaso_completo(modelo):
+    """Prueba H0: b1 = 1 (traspaso completo) con los mismos errores HAC
+    del modelo. Si no se rechaza, la interbancaria sigue 1 a 1 a la tasa
+    de politica y el desvio no depende del nivel de esa tasa; si se
+    rechaza, el desvio cambia sistematicamente con el nivel de la tasa
+    de politica (en b1 - 1 pp por cada punto de la referencia)."""
+    prueba = modelo.t_test(f"{COL_EXO1_REFERENCIA} = 1")
+    p_valor = np.asarray(prueba.pvalue).item()
+    return pd.DataFrame([{
+        "hipotesis_nula": f"b1 ({COL_EXO1_REFERENCIA}) = 1",
+        "b1_estimado": modelo.params[COL_EXO1_REFERENCIA],
+        "error_estandar_HAC": modelo.bse[COL_EXO1_REFERENCIA],
+        "z_stat": np.asarray(prueba.tvalue).item(),
+        "p_valor": p_valor,
+        "rechaza_h0_al_5pct": p_valor < 0.05,
+    }])
+
+
 # ---------------------------------------------------------------------------
-# 7) PROGRAMA PRINCIPAL
+# 8) PROGRAMA PRINCIPAL
 # ---------------------------------------------------------------------------
 def main():
     configurar_logging()
@@ -286,6 +387,24 @@ def main():
     figura_variables_liquidez(df, ruta_fig2)
     logging.info("Figura de variables de liquidez guardada en: %s", ruta_fig2)
 
+    # --- Desvio respecto de la tasa de politica ---
+    df = calcular_desvio(df)
+    tabla_desvio = tabla_desvio_por_anio(df)
+    ruta_desvio = os.path.join(CARPETA_SALIDAS, f"tabla_desvio_por_anio_{CODIGO_MATRICULA}.csv")
+    tabla_desvio.to_csv(ruta_desvio, index=False, encoding="utf-8")
+    logging.info("Tabla de desvio por anio guardada en: %s", ruta_desvio)
+
+    total = tabla_desvio.iloc[-1]
+    logging.info("Desvio interbancaria - referencia (%s): medio = %.4f pp | absoluto "
+                 "medio = %.4f pp | dias sobre / igual / bajo la referencia = "
+                 "%.1f%% / %.1f%% / %.1f%%", total["periodo"], total["desvio_medio_pp"],
+                 total["desvio_absoluto_medio_pp"], total["pct_dias_sobre_referencia"],
+                 total["pct_dias_igual_referencia"], total["pct_dias_bajo_referencia"])
+
+    ruta_fig_desvio = os.path.join(CARPETA_SALIDAS, f"fig_desvio_interbancaria_{CODIGO_MATRICULA}.png")
+    figura_desvio(df, ruta_fig_desvio)
+    logging.info("Figura del desvio guardada en: %s", ruta_fig_desvio)
+
     # --- Regresion ---
     modelo, maxlags = correr_regresion(df_modelo)
 
@@ -296,6 +415,16 @@ def main():
 
     logging.info("R2 = %.4f | R2 ajustado = %.4f | N = %s | maxlags HAC = %s",
                  modelo.rsquared, modelo.rsquared_adj, int(modelo.nobs), maxlags)
+
+    # --- Prueba de traspaso completo (H0: b1 = 1) ---
+    tabla_traspaso = prueba_traspaso_completo(modelo)
+    ruta_traspaso = os.path.join(CARPETA_SALIDAS, f"tabla_prueba_traspaso_{CODIGO_MATRICULA}.csv")
+    tabla_traspaso.to_csv(ruta_traspaso, index=False, encoding="utf-8")
+    fila = tabla_traspaso.iloc[0]
+    logging.info("Prueba de traspaso completo H0: b1 = 1 -> b1 = %.4f | z = %.3f | "
+                 "p-valor = %.4f | rechaza H0 al 5%%: %s", fila["b1_estimado"],
+                 fila["z_stat"], fila["p_valor"], "si" if fila["rechaza_h0_al_5pct"] else "no")
+    logging.info("Tabla de la prueba de traspaso guardada en: %s", ruta_traspaso)
     logging.info("=== Fin de analisis (Tema 22) ===")
 
 

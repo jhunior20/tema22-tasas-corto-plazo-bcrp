@@ -11,6 +11,8 @@
 
 **N.º 22 – Tasas de corto plazo en el Perú: interbancaria, certificados del BCRP y tasa de referencia**
 
+**Objetivo de investigación:** analizar la formación de las tasas de muy corto plazo y su desvío respecto de la tasa de política.
+
 Modelo estimado (series de tiempo diarias, MCO con errores Newey-West/HAC):
 
 ```
@@ -26,6 +28,8 @@ interbancaria = b0 + b1·referencia + b2·CD_BCRP
 | Exógena 2 | PD04679MD | Tasa de interés del saldo de CD BCRP | % |
 | Exógena 3 | PD04668MD | Depósitos del sector público en el BCRP (saldo) | millones S/ |
 | Exógena 4 | PD04665MD | Cuentas corrientes de bancos en el BCRP (saldo), **rezagada 1 día** | millones S/ |
+
+Desvío respecto de la tasa de política: `desvío = interbancaria − referencia` (puntos porcentuales). Como el desvío es la endógena menos la exógena 1, el mismo modelo lo explica: b2, b3 y b4 miden también el efecto sobre el desvío, y la prueba H0: b1 = 1 (traspaso completo) indica si el desvío cambia con el nivel de la tasa de política.
 
 ## 3. Fuentes y endpoints
 
@@ -68,7 +72,7 @@ python 04_analisis.py
 | `01_extraccion_api.py` | Descarga las 5 series de la API BCRPData y guarda el crudo intacto (JSON y CSV) en `datos_crudos/`. |
 | `02_scraping_web.py` | **No aplica.** La vía 2 (scraping) es opcional en la Unidad I y no se implementó: todas las series del modelo están disponibles en la API oficial del BCRP. `03` detecta que el archivo no existe y continúa solo con la API. |
 | `03_limpieza_datos.py` | Tipifica, imputa faltantes (tasas: interpolación lineal; saldos: forward-fill máx. 5 días; bordes iniciales: bfill), marca outliers (±4 desv. est.), crea el rezago `_L1` y guarda `datos_procesados/` con su SHA-256. |
-| `04_analisis.py` | Guarda la base exacta que entra al modelo (`datos_analisis`) y genera descriptivos, correlaciones, figuras y la regresión MCO con errores Newey-West en `salidas/`. |
+| `04_analisis.py` | Guarda la base exacta que entra al modelo (`datos_analisis`) y genera descriptivos, correlaciones, figuras y la regresión MCO con errores Newey-West en `salidas/`. Además calcula el desvío de la interbancaria respecto de la tasa de referencia (tabla por año y figura) y la prueba de traspaso completo H0: b1 = 1. |
 
 Cada ejecución queda registrada en `log_ejecucion.txt`.
 

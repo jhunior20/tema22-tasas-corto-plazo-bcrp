@@ -39,7 +39,8 @@ de politica):
 
 La API de BCRPData es publica y no requiere token ni registro previo,
 por eso este script no usa clave alguna en el .env (no hay clave que
-declarar; el archivo .env.example queda vacio a proposito).
+declarar; el archivo .env.example solo explica esto y no declara
+ninguna variable).
 
 Documentacion oficial de la API:
 https://estadisticas.bcrp.gob.pe/estadisticas/series/ayuda/api
@@ -96,7 +97,7 @@ CARPETA_CRUDOS = os.path.join(_DIRECTORIO_SCRIPT, "..", "datos_crudos")
 ARCHIVO_LOG = os.path.join(_DIRECTORIO_SCRIPT, "..", "log_ejecucion.txt")
 
 # User-Agent identificable, tal como exige el numeral 2.4.8 de la consigna
-HEADERS = {"User-Agent": "UNCP-FinanzasI-Tema22-Rey/1.0 (uso academico)"}
+HEADERS = {"User-Agent": "UNCP-FinanzasI-Tema22-2024200505K/1.0 (uso academico)"}
 
 
 # ---------------------------------------------------------------------------

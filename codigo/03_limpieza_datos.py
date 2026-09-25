@@ -27,7 +27,8 @@ sin rezagar para que quede trazable de donde sale cada una.
 
 Tratamiento de faltantes autorizado por el docente (metodos
 estadisticos, no solo dejar NaN): cada variable usa el metodo que mejor
-refleja su naturaleza economica -- ver TRATAR_FALTANTES mas abajo.
+refleja su naturaleza economica -- ver la funcion tratar_faltantes()
+mas abajo.
 """
 
 import os
@@ -184,9 +185,13 @@ def tratar_faltantes(df):
     a la naturaleza de cada variable (autorizado por el docente):
 
     - Tasas (interbancaria, referencia, CD BCRP): INTERPOLACION LINEAL.
-      Son series que se mueven de forma suave y continua dia a dia, asi
-      que el valor intermedio esperado entre el dato anterior y el
-      siguiente es una buena aproximacion estadistica.
+      En la interbancaria y la de CD BCRP, el valor intermedio entre
+      el dato anterior y el siguiente es una buena aproximacion
+      estadistica del dia faltante. La tasa de referencia, en cambio,
+      cambia en saltos: si un cambio de tasa coincide con un dia sin
+      dato, la interpolacion da un valor intermedio que el BCRP nunca
+      fijo (limitacion documentada en incidencias_fuente.md). Se usa el
+      mismo metodo en las tres tasas para mantener un criterio unico.
       Excepcion de borde: si el hueco esta al INICIO de toda la serie
       (no hay dato anterior con el cual interpolar), se usa
       backward-fill (copia el primer valor real hacia atras). Si el
@@ -272,8 +277,8 @@ def tratar_faltantes(df):
 
 def marcar_outliers(df, n_desv_estandar=4):
     """Marca (no elimina ni corrige) valores atipicos por columna, sobre
-    los datos YA rellenados, usando +/- N desviaciones estandar. Se dej
-    a como columna booleana "_outlier" para que la deteccion sea
+    los datos YA rellenados, usando +/- N desviaciones estandar. Se deja
+    como columna booleana "_outlier" para que la deteccion sea
     transparente y reproducible, sin alterar ningun valor real."""
     for col in COLUMNAS_VARIABLES:
         media = df[col].mean()

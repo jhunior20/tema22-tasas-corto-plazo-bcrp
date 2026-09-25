@@ -1,0 +1,2 @@
+hipotesis_nula,b1_estimado,error_estandar_HAC,z_stat,p_valor,rechaza_h0_al_5pct
+b1 (tasa_referencia_exo) = 1,1.0314050648693318,0.012240715327377413,2.5656233340458203,0.010299059981231564,True

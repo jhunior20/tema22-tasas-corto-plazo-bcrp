@@ -79,3 +79,49 @@ Notes:
 2026-09-24 17:38:29,166 | INFO | Tabla de resultados de la regresion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_regresion_2024200505K.csv
 2026-09-24 17:38:29,166 | INFO | R2 = 0.9948 | R2 ajustado = 0.9948 | N = 2870 | maxlags HAC = 8
 2026-09-24 17:38:29,166 | INFO | === Fin de analisis (Tema 22) ===
+2026-09-24 19:26:21,726 | INFO | === Inicio de analisis (Tema 22) ===
+2026-09-24 19:26:21,742 | INFO | Filas cargadas desde datos_procesados: 2870
+2026-09-24 19:26:21,757 | INFO | Datos de analisis guardados en: C:\Users\Usuario\Documents\python\codigo\..\salidas\datos_analisis_2024200505K.csv
+2026-09-24 19:26:21,757 | INFO | Tabla de descriptivos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_descriptivos_2024200505K.csv
+2026-09-24 19:26:21,770 | INFO | Tabla de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_correlacion_2024200505K.csv
+2026-09-24 19:26:21,974 | INFO | Figura de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_correlacion_2024200505K.png
+2026-09-24 19:26:22,071 | INFO | Figura interbancaria vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_interbancaria_vs_referencia_2024200505K.png
+2026-09-24 19:26:22,165 | INFO | Figura de variables de liquidez guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_variables_liquidez_2024200505K.png
+2026-09-24 19:26:22,186 | INFO | Tabla de desvio por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_desvio_por_anio_2024200505K.csv
+2026-09-24 19:26:22,186 | INFO | Desvio interbancaria - referencia (2015-2025): medio = 0.0252 pp | absoluto medio = 0.0389 pp | dias sobre / igual / bajo la referencia = 15.5% / 77.8% / 6.7%
+2026-09-24 19:26:22,294 | INFO | Figura del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_desvio_interbancaria_2024200505K.png
+2026-09-24 19:26:22,304 | INFO | Regresion OLS con errores Newey-West (HAC), maxlags=8
+2026-09-24 19:26:22,306 | INFO | 
+                                OLS Regression Results                               
+=====================================================================================
+Dep. Variable:     tasa_interbancaria_on_end   R-squared:                       0.995
+Model:                                   OLS   Adj. R-squared:                  0.995
+Method:                        Least Squares   F-statistic:                 3.543e+05
+Date:                       Thu, 24 Sep 2026   Prob (F-statistic):               0.00
+Time:                               19:26:22   Log-Likelihood:                 1389.8
+No. Observations:                       2870   AIC:                            -2770.
+Df Residuals:                           2865   BIC:                            -2740.
+Df Model:                                  4                                         
+Covariance Type:                         HAC                                         
+=========================================================================================
+                            coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     1.0188      0.356      2.858      0.004       0.320       1.717
+tasa_referencia_exo       1.0314      0.012     84.260      0.000       1.007       1.055
+tasa_cdbcrp_saldo_exo    -0.0307      0.012     -2.537      0.011      -0.054      -0.007
+ln_depositos             -0.0776      0.029     -2.689      0.007      -0.134      -0.021
+ln_ctacte_L1             -0.0204      0.007     -2.875      0.004      -0.034      -0.007
+==============================================================================
+Omnibus:                     2206.655   Durbin-Watson:                   0.433
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           235874.321
+Skew:                           2.914   Prob(JB):                         0.00
+Kurtosis:                      47.028   Cond. No.                         547.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 8 lags and without small sample correction
+2026-09-24 19:26:22,311 | INFO | Tabla de resultados de la regresion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_regresion_2024200505K.csv
+2026-09-24 19:26:22,311 | INFO | R2 = 0.9948 | R2 ajustado = 0.9948 | N = 2870 | maxlags HAC = 8
+2026-09-24 19:26:22,311 | INFO | Prueba de traspaso completo H0: b1 = 1 -> b1 = 1.0314 | z = 2.566 | p-valor = 0.0103 | rechaza H0 al 5%: si
+2026-09-24 19:26:22,311 | INFO | Tabla de la prueba de traspaso guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_prueba_traspaso_2024200505K.csv
+2026-09-24 19:26:22,311 | INFO | === Fin de analisis (Tema 22) ===
