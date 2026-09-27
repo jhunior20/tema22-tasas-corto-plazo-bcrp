@@ -125,3 +125,228 @@ Notes:
 2026-09-24 19:26:22,311 | INFO | Prueba de traspaso completo H0: b1 = 1 -> b1 = 1.0314 | z = 2.566 | p-valor = 0.0103 | rechaza H0 al 5%: si
 2026-09-24 19:26:22,311 | INFO | Tabla de la prueba de traspaso guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_prueba_traspaso_2024200505K.csv
 2026-09-24 19:26:22,311 | INFO | === Fin de analisis (Tema 22) ===
+2026-09-27 16:00:33,789 | INFO | === Inicio de analisis (Tema 22) ===
+2026-09-27 16:00:33,796 | INFO | Filas cargadas desde datos_procesados: 2870
+2026-09-27 16:00:33,796 | INFO | Datos de analisis guardados en: C:\Users\Usuario\Documents\python\codigo\..\salidas\datos_analisis_2024200505K.csv
+2026-09-27 16:00:33,816 | INFO | Tabla de descriptivos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_descriptivos_2024200505K.csv
+2026-09-27 16:00:33,818 | INFO | Tabla de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_correlacion_2024200505K.csv
+2026-09-27 16:00:33,968 | INFO | Figura de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_correlacion_2024200505K.png
+2026-09-27 16:00:34,071 | INFO | Figura interbancaria vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_interbancaria_vs_referencia_2024200505K.png
+2026-09-27 16:00:34,166 | INFO | Figura de variables de liquidez guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_variables_liquidez_2024200505K.png
+2026-09-27 16:00:34,167 | INFO | Tabla de desvio por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_desvio_por_anio_2024200505K.csv
+2026-09-27 16:00:34,167 | INFO | Desvio interbancaria - referencia (2015-2025): medio = 0.0252 pp | absoluto medio = 0.0389 pp | dias sobre / igual / bajo la referencia = 15.5% / 77.8% / 6.7%
+2026-09-27 16:00:34,268 | INFO | Figura del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_desvio_interbancaria_2024200505K.png
+2026-09-27 16:00:34,372 | INFO | Figura CD BCRP vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_cdbcrp_vs_referencia_2024200505K.png
+2026-09-27 16:00:34,645 | INFO | Figura histograma del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_histograma_desvio_2024200505K.png
+2026-09-27 16:00:34,747 | INFO | Figura boxplot del desvio por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_boxplot_desvio_anual_2024200505K.png
+2026-09-27 16:00:34,854 | INFO | Figura dispersion interbancaria vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_scatter_interbancaria_referencia_2024200505K.png
+2026-09-27 16:00:34,954 | INFO | Figura distribucion de las tasas guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_distribucion_tasas_2024200505K.png
+2026-09-27 16:00:35,038 | INFO | Figura depositos publicos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_depositos_publicos_2024200505K.png
+2026-09-27 16:00:35,137 | INFO | Figura cuenta corriente 2023 guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_cuenta_corriente_detalle2023_2024200505K.png
+2026-09-27 16:00:35,233 | INFO | Figura volatilidad movil guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_volatilidad_movil_2024200505K.png
+2026-09-27 16:00:35,249 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:00:35,249 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:00:35,249 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:00:35,249 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:00:35,356 | INFO | Figura estado diario por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_estado_diario_por_anio_2024200505K.png
+2026-09-27 16:00:35,358 | INFO | Regresion OLS con errores Newey-West (HAC), maxlags=8
+2026-09-27 16:00:35,358 | INFO | 
+                                OLS Regression Results                               
+=====================================================================================
+Dep. Variable:     tasa_interbancaria_on_end   R-squared:                       0.995
+Model:                                   OLS   Adj. R-squared:                  0.995
+Method:                        Least Squares   F-statistic:                 3.543e+05
+Date:                       Sun, 27 Sep 2026   Prob (F-statistic):               0.00
+Time:                               16:00:35   Log-Likelihood:                 1389.8
+No. Observations:                       2870   AIC:                            -2770.
+Df Residuals:                           2865   BIC:                            -2740.
+Df Model:                                  4                                         
+Covariance Type:                         HAC                                         
+=========================================================================================
+                            coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     1.0188      0.356      2.858      0.004       0.320       1.717
+tasa_referencia_exo       1.0314      0.012     84.260      0.000       1.007       1.055
+tasa_cdbcrp_saldo_exo    -0.0307      0.012     -2.537      0.011      -0.054      -0.007
+ln_depositos             -0.0776      0.029     -2.689      0.007      -0.134      -0.021
+ln_ctacte_L1             -0.0204      0.007     -2.875      0.004      -0.034      -0.007
+==============================================================================
+Omnibus:                     2206.655   Durbin-Watson:                   0.433
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           235874.321
+Skew:                           2.914   Prob(JB):                         0.00
+Kurtosis:                      47.028   Cond. No.                         547.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 8 lags and without small sample correction
+2026-09-27 16:00:35,358 | INFO | Tabla de resultados de la regresion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_regresion_2024200505K.csv
+2026-09-27 16:00:35,358 | INFO | R2 = 0.9948 | R2 ajustado = 0.9948 | N = 2870 | maxlags HAC = 8
+2026-09-27 16:00:35,358 | INFO | Prueba de traspaso completo H0: b1 = 1 -> b1 = 1.0314 | z = 2.566 | p-valor = 0.0103 | rechaza H0 al 5%: si
+2026-09-27 16:00:35,358 | INFO | Tabla de la prueba de traspaso guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_prueba_traspaso_2024200505K.csv
+2026-09-27 16:00:35,455 | INFO | Figura residuos vs. ajustados guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_residuos_vs_ajustados_2024200505K.png
+2026-09-27 16:00:35,534 | INFO | Figura residuos en el tiempo guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_residuos_tiempo_2024200505K.png
+2026-09-27 16:00:35,624 | INFO | Figura Q-Q de los residuos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_qq_residuos_2024200505K.png
+2026-09-27 16:00:35,624 | INFO | === Fin de analisis (Tema 22) ===
+2026-09-27 16:07:51,909 | INFO | === Inicio de analisis (Tema 22) ===
+2026-09-27 16:07:51,921 | INFO | Filas cargadas desde datos_procesados: 2870
+2026-09-27 16:07:51,937 | INFO | Datos de analisis guardados en: C:\Users\Usuario\Documents\python\codigo\..\salidas\datos_analisis_2024200505K.csv
+2026-09-27 16:07:51,937 | INFO | Tabla de descriptivos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_descriptivos_2024200505K.csv
+2026-09-27 16:07:51,937 | INFO | Tabla de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_correlacion_2024200505K.csv
+2026-09-27 16:07:52,103 | INFO | Figura de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_correlacion_2024200505K.png
+2026-09-27 16:07:52,189 | INFO | Figura interbancaria vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_interbancaria_vs_referencia_2024200505K.png
+2026-09-27 16:07:52,289 | INFO | Figura de variables de liquidez guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_variables_liquidez_2024200505K.png
+2026-09-27 16:07:52,301 | INFO | Tabla de desvio por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_desvio_por_anio_2024200505K.csv
+2026-09-27 16:07:52,301 | INFO | Desvio interbancaria - referencia (2015-2025): medio = 0.0252 pp | absoluto medio = 0.0389 pp | dias sobre / igual / bajo la referencia = 15.5% / 77.8% / 6.7%
+2026-09-27 16:07:52,407 | INFO | Figura del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_desvio_interbancaria_2024200505K.png
+2026-09-27 16:07:52,505 | INFO | Figura CD BCRP vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_cdbcrp_vs_referencia_2024200505K.png
+2026-09-27 16:07:52,787 | INFO | Figura histograma del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_histograma_desvio_2024200505K.png
+2026-09-27 16:07:52,890 | INFO | Figura boxplot del desvio por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_boxplot_desvio_anual_2024200505K.png
+2026-09-27 16:07:52,995 | INFO | Figura dispersion interbancaria vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_scatter_interbancaria_referencia_2024200505K.png
+2026-09-27 16:07:53,106 | INFO | Figura distribucion de las tasas guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_distribucion_tasas_2024200505K.png
+2026-09-27 16:07:53,187 | INFO | Figura depositos publicos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_depositos_publicos_2024200505K.png
+2026-09-27 16:07:53,280 | INFO | Figura cuenta corriente 2023 guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_cuenta_corriente_detalle2023_2024200505K.png
+2026-09-27 16:07:53,388 | INFO | Figura volatilidad movil guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_volatilidad_movil_2024200505K.png
+2026-09-27 16:07:53,552 | INFO | Figura mapa de calor del desvio mensual guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_heatmap_desvio_mensual_2024200505K.png
+2026-09-27 16:07:53,639 | INFO | Figura zoom trimestral cta. cte. guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_ctacte_zoom_trimestre_2024200505K.png
+2026-09-27 16:07:53,801 | INFO | Figura depositos vs. cuentas corrientes guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_depositos_vs_ctacte_scatter_2024200505K.png
+2026-09-27 16:07:53,886 | INFO | Figura correlacion movil guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_correlacion_movil_90d_2024200505K.png
+2026-09-27 16:07:53,981 | INFO | Figura variacion diaria de la interbancaria guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_variacion_diaria_interbancaria_2024200505K.png
+2026-09-27 16:07:54,228 | INFO | Figura histograma de la variacion diaria guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_histograma_variacion_diaria_2024200505K.png
+2026-09-27 16:07:54,347 | INFO | Figura promedio movil cta. cte. guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_promedio_movil_ctacte_30d_2024200505K.png
+2026-09-27 16:07:54,454 | INFO | Figura promedio movil depositos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_promedio_movil_depositos_90d_2024200505K.png
+2026-09-27 16:07:54,560 | INFO | Figura boxplot del desvio por etapa guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_boxplot_desvio_por_etapa_2024200505K.png
+2026-09-27 16:07:54,702 | INFO | Figura volatilidad vs. desvio absoluto guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_dispersion_volatilidad_desvio_2024200505K.png
+2026-09-27 16:07:54,786 | INFO | Figura distribucion acumulada del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_ecdf_desvio_2024200505K.png
+2026-09-27 16:07:54,873 | INFO | Figura CD BCRP suavizada guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_evolucion_cdbcrp_suavizada_2024200505K.png
+2026-09-27 16:07:54,992 | INFO | Figura 10 mayores desvios guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_top10_desvios_2024200505K.png
+2026-09-27 16:07:54,992 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:07:54,992 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:07:54,992 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:07:55,009 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:07:55,108 | INFO | Figura estado diario por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_estado_diario_por_anio_2024200505K.png
+2026-09-27 16:07:55,113 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:07:55,113 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:07:55,190 | INFO | Figura desvio absoluto por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_desvio_absoluto_por_anio_2024200505K.png
+2026-09-27 16:07:55,190 | INFO | Regresion OLS con errores Newey-West (HAC), maxlags=8
+2026-09-27 16:07:55,206 | INFO | 
+                                OLS Regression Results                               
+=====================================================================================
+Dep. Variable:     tasa_interbancaria_on_end   R-squared:                       0.995
+Model:                                   OLS   Adj. R-squared:                  0.995
+Method:                        Least Squares   F-statistic:                 3.543e+05
+Date:                       Sun, 27 Sep 2026   Prob (F-statistic):               0.00
+Time:                               16:07:55   Log-Likelihood:                 1389.8
+No. Observations:                       2870   AIC:                            -2770.
+Df Residuals:                           2865   BIC:                            -2740.
+Df Model:                                  4                                         
+Covariance Type:                         HAC                                         
+=========================================================================================
+                            coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     1.0188      0.356      2.858      0.004       0.320       1.717
+tasa_referencia_exo       1.0314      0.012     84.260      0.000       1.007       1.055
+tasa_cdbcrp_saldo_exo    -0.0307      0.012     -2.537      0.011      -0.054      -0.007
+ln_depositos             -0.0776      0.029     -2.689      0.007      -0.134      -0.021
+ln_ctacte_L1             -0.0204      0.007     -2.875      0.004      -0.034      -0.007
+==============================================================================
+Omnibus:                     2206.655   Durbin-Watson:                   0.433
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           235874.321
+Skew:                           2.914   Prob(JB):                         0.00
+Kurtosis:                      47.028   Cond. No.                         547.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 8 lags and without small sample correction
+2026-09-27 16:07:55,206 | INFO | Tabla de resultados de la regresion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_regresion_2024200505K.csv
+2026-09-27 16:07:55,206 | INFO | R2 = 0.9948 | R2 ajustado = 0.9948 | N = 2870 | maxlags HAC = 8
+2026-09-27 16:07:55,206 | INFO | Prueba de traspaso completo H0: b1 = 1 -> b1 = 1.0314 | z = 2.566 | p-valor = 0.0103 | rechaza H0 al 5%: si
+2026-09-27 16:07:55,206 | INFO | Tabla de la prueba de traspaso guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_prueba_traspaso_2024200505K.csv
+2026-09-27 16:07:55,291 | INFO | Figura residuos vs. ajustados guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_residuos_vs_ajustados_2024200505K.png
+2026-09-27 16:07:55,384 | INFO | Figura residuos en el tiempo guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_residuos_tiempo_2024200505K.png
+2026-09-27 16:07:55,466 | INFO | Figura Q-Q de los residuos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_qq_residuos_2024200505K.png
+2026-09-27 16:07:55,623 | INFO | Figura histograma de los residuos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_histograma_residuos_2024200505K.png
+2026-09-27 16:07:55,717 | INFO | Figura autocorrelacion de los residuos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_autocorrelacion_residuos_2024200505K.png
+2026-09-27 16:07:55,717 | INFO | === Fin de analisis (Tema 22) ===
+2026-09-27 16:10:17,772 | INFO | === Inicio de analisis (Tema 22) ===
+2026-09-27 16:10:17,787 | INFO | Filas cargadas desde datos_procesados: 2870
+2026-09-27 16:10:17,801 | INFO | Datos de analisis guardados en: C:\Users\Usuario\Documents\python\codigo\..\salidas\datos_analisis_2024200505K.csv
+2026-09-27 16:10:17,807 | INFO | Tabla de descriptivos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_descriptivos_2024200505K.csv
+2026-09-27 16:10:17,807 | INFO | Tabla de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_correlacion_2024200505K.csv
+2026-09-27 16:10:17,977 | INFO | Figura de correlacion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_correlacion_2024200505K.png
+2026-09-27 16:10:18,079 | INFO | Figura interbancaria vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_interbancaria_vs_referencia_2024200505K.png
+2026-09-27 16:10:18,177 | INFO | Figura de variables de liquidez guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_variables_liquidez_2024200505K.png
+2026-09-27 16:10:18,186 | INFO | Tabla de desvio por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_desvio_por_anio_2024200505K.csv
+2026-09-27 16:10:18,194 | INFO | Tabla de desvio por etapa guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_desvio_por_etapa_2024200505K.csv
+2026-09-27 16:10:18,198 | INFO | Tabla de 10 mayores desvios guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_top10_desvios_2024200505K.csv
+2026-09-27 16:10:18,198 | INFO | Desvio interbancaria - referencia (2015-2025): medio = 0.0252 pp | absoluto medio = 0.0389 pp | dias sobre / igual / bajo la referencia = 15.5% / 77.8% / 6.7%
+2026-09-27 16:10:18,303 | INFO | Figura del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_desvio_interbancaria_2024200505K.png
+2026-09-27 16:10:18,406 | INFO | Figura CD BCRP vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_cdbcrp_vs_referencia_2024200505K.png
+2026-09-27 16:10:18,693 | INFO | Figura histograma del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_histograma_desvio_2024200505K.png
+2026-09-27 16:10:18,805 | INFO | Figura boxplot del desvio por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_boxplot_desvio_anual_2024200505K.png
+2026-09-27 16:10:18,912 | INFO | Figura dispersion interbancaria vs. referencia guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_scatter_interbancaria_referencia_2024200505K.png
+2026-09-27 16:10:19,017 | INFO | Figura distribucion de las tasas guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_distribucion_tasas_2024200505K.png
+2026-09-27 16:10:19,102 | INFO | Figura depositos publicos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_depositos_publicos_2024200505K.png
+2026-09-27 16:10:19,194 | INFO | Figura cuenta corriente 2023 guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_cuenta_corriente_detalle2023_2024200505K.png
+2026-09-27 16:10:19,301 | INFO | Figura volatilidad movil guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_volatilidad_movil_2024200505K.png
+2026-09-27 16:10:19,467 | INFO | Figura mapa de calor del desvio mensual guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_heatmap_desvio_mensual_2024200505K.png
+2026-09-27 16:10:19,551 | INFO | Figura zoom trimestral cta. cte. guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_ctacte_zoom_trimestre_2024200505K.png
+2026-09-27 16:10:19,709 | INFO | Figura depositos vs. cuentas corrientes guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_depositos_vs_ctacte_scatter_2024200505K.png
+2026-09-27 16:10:19,802 | INFO | Figura correlacion movil guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_correlacion_movil_90d_2024200505K.png
+2026-09-27 16:10:19,883 | INFO | Figura variacion diaria de la interbancaria guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_variacion_diaria_interbancaria_2024200505K.png
+2026-09-27 16:10:20,124 | INFO | Figura histograma de la variacion diaria guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_histograma_variacion_diaria_2024200505K.png
+2026-09-27 16:10:20,240 | INFO | Figura promedio movil cta. cte. guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_promedio_movil_ctacte_30d_2024200505K.png
+2026-09-27 16:10:20,337 | INFO | Figura promedio movil depositos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_promedio_movil_depositos_90d_2024200505K.png
+2026-09-27 16:10:20,458 | INFO | Figura boxplot del desvio por etapa guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_boxplot_desvio_por_etapa_2024200505K.png
+2026-09-27 16:10:20,589 | INFO | Figura volatilidad vs. desvio absoluto guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_dispersion_volatilidad_desvio_2024200505K.png
+2026-09-27 16:10:20,669 | INFO | Figura distribucion acumulada del desvio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_ecdf_desvio_2024200505K.png
+2026-09-27 16:10:20,762 | INFO | Figura CD BCRP suavizada guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_evolucion_cdbcrp_suavizada_2024200505K.png
+2026-09-27 16:10:20,855 | INFO | Figura 10 mayores desvios guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_top10_desvios_2024200505K.png
+2026-09-27 16:10:20,871 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:10:20,871 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:10:20,871 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:10:20,871 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:10:20,966 | INFO | Figura estado diario por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_estado_diario_por_anio_2024200505K.png
+2026-09-27 16:10:20,966 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:10:20,966 | INFO | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-09-27 16:10:21,057 | INFO | Figura desvio absoluto por anio guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_desvio_absoluto_por_anio_2024200505K.png
+2026-09-27 16:10:21,057 | INFO | Regresion OLS con errores Newey-West (HAC), maxlags=8
+2026-09-27 16:10:21,057 | INFO | 
+                                OLS Regression Results                               
+=====================================================================================
+Dep. Variable:     tasa_interbancaria_on_end   R-squared:                       0.995
+Model:                                   OLS   Adj. R-squared:                  0.995
+Method:                        Least Squares   F-statistic:                 3.543e+05
+Date:                       Sun, 27 Sep 2026   Prob (F-statistic):               0.00
+Time:                               16:10:21   Log-Likelihood:                 1389.8
+No. Observations:                       2870   AIC:                            -2770.
+Df Residuals:                           2865   BIC:                            -2740.
+Df Model:                                  4                                         
+Covariance Type:                         HAC                                         
+=========================================================================================
+                            coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     1.0188      0.356      2.858      0.004       0.320       1.717
+tasa_referencia_exo       1.0314      0.012     84.260      0.000       1.007       1.055
+tasa_cdbcrp_saldo_exo    -0.0307      0.012     -2.537      0.011      -0.054      -0.007
+ln_depositos             -0.0776      0.029     -2.689      0.007      -0.134      -0.021
+ln_ctacte_L1             -0.0204      0.007     -2.875      0.004      -0.034      -0.007
+==============================================================================
+Omnibus:                     2206.655   Durbin-Watson:                   0.433
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):           235874.321
+Skew:                           2.914   Prob(JB):                         0.00
+Kurtosis:                      47.028   Cond. No.                         547.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 8 lags and without small sample correction
+2026-09-27 16:10:21,072 | INFO | Tabla de resultados de la regresion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_regresion_2024200505K.csv
+2026-09-27 16:10:21,072 | INFO | R2 = 0.9948 | R2 ajustado = 0.9948 | N = 2870 | maxlags HAC = 8
+2026-09-27 16:10:21,072 | INFO | Tabla de diagnosticos de la regresion guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_diagnosticos_regresion_2024200505K.csv
+2026-09-27 16:10:21,072 | INFO | Prueba de traspaso completo H0: b1 = 1 -> b1 = 1.0314 | z = 2.566 | p-valor = 0.0103 | rechaza H0 al 5%: si
+2026-09-27 16:10:21,072 | INFO | Tabla de la prueba de traspaso guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\tabla_prueba_traspaso_2024200505K.csv
+2026-09-27 16:10:21,154 | INFO | Figura residuos vs. ajustados guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_residuos_vs_ajustados_2024200505K.png
+2026-09-27 16:10:21,245 | INFO | Figura residuos en el tiempo guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_residuos_tiempo_2024200505K.png
+2026-09-27 16:10:21,313 | INFO | Figura Q-Q de los residuos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_qq_residuos_2024200505K.png
+2026-09-27 16:10:21,458 | INFO | Figura histograma de los residuos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_histograma_residuos_2024200505K.png
+2026-09-27 16:10:21,538 | INFO | Figura autocorrelacion de los residuos guardada en: C:\Users\Usuario\Documents\python\codigo\..\salidas\fig_autocorrelacion_residuos_2024200505K.png
+2026-09-27 16:10:21,538 | INFO | === Fin de analisis (Tema 22) ===

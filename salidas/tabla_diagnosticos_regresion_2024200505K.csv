@@ -1,0 +1,11 @@
+indicador,valor,interpretacion
+r2,0.9948035738163783,Proporcion de la varianza de la interbancaria explicada por el modelo
+r2_ajustado,0.9947963187710958,R2 corregido por el numero de regresores
+n_obs,2870.0,Dias usados en la estimacion
+durbin_watson,0.4331956531781653,Cercano a 2 = sin autocorrelacion; muy por debajo de 2 = autocorrelacion positiva de los residuos
+jarque_bera,235874.3210077998,Prueba de normalidad de los residuos (H0: residuos normales)
+jarque_bera_p_valor,0.0,p-valor < 0.05 = se rechaza la normalidad
+asimetria,2.9143300129137923,0 en una normal; > 0 = cola derecha mas larga
+curtosis,47.028342143619064,3 en una normal; > 3 = colas mas gruesas (mas dias extremos)
+numero_condicion,547.2446295043225,Multicolinealidad: valores altos (> 30) indican regresores muy relacionados o de escala distinta
+maxlags_hac,8.0,Rezagos de los errores Newey-West (HAC) usados en la inferencia

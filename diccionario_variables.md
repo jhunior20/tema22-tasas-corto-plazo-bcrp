@@ -40,7 +40,7 @@ El desvío se calcula en memoria en `04_analisis.py` (no se guarda en `datos_pro
 |---|---|---|---|
 | `desvio_interbancaria_referencia_pp` | Desvío diario de la interbancaria respecto de la tasa de referencia. Positivo = la interbancaria está por encima de la tasa de política | puntos porcentuales | `tasa_interbancaria_on_end − tasa_referencia_exo` |
 
-Columnas de la tabla por año (la última fila resume toda la muestra):
+Columnas de la tabla por año (la última fila resume toda la muestra). `salidas/tabla_desvio_por_etapa_2024200505K.csv` tiene las mismas columnas, pero agrupadas por las 5 etapas de política monetaria (columnas `etapa`, `fecha_inicio` y `fecha_fin` en lugar de `periodo`):
 
 | Columna | Descripción |
 |---|---|

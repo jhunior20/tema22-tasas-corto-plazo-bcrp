@@ -72,11 +72,31 @@ python 04_analisis.py
 | `01_extraccion_api.py` | Descarga las 5 series de la API BCRPData y guarda el crudo intacto (JSON y CSV) en `datos_crudos/`. |
 | `02_scraping_web.py` | **No aplica.** La vía 2 (scraping) es opcional en la Unidad I y no se implementó: todas las series del modelo están disponibles en la API oficial del BCRP. `03` detecta que el archivo no existe y continúa solo con la API. |
 | `03_limpieza_datos.py` | Tipifica, imputa faltantes (tasas: interpolación lineal; saldos: forward-fill máx. 5 días; bordes iniciales: bfill), marca outliers (±4 desv. est.), crea el rezago `_L1` y guarda `datos_procesados/` con su SHA-256. |
-| `04_analisis.py` | Guarda la base exacta que entra al modelo (`datos_analisis`) y genera descriptivos, correlaciones, figuras y la regresión MCO con errores Newey-West en `salidas/`. Además calcula el desvío de la interbancaria respecto de la tasa de referencia (tabla por año y figura) y la prueba de traspaso completo H0: b1 = 1. |
+| `04_analisis.py` | Guarda la base exacta que entra al modelo (`datos_analisis`) y genera descriptivos, correlaciones, figuras y la regresión MCO con errores Newey-West en `salidas/`. Además calcula el desvío de la interbancaria respecto de la tasa de referencia (tabla por año y figura) y la prueba de traspaso completo H0: b1 = 1. Genera también figuras complementarias: CD BCRP vs. referencia; dispersión con la línea de 45°; distribución de las tasas, del desvío y de la variación diaria; desvío por año, por mes (mapa de calor) y por las 5 etapas de política monetaria (definidas en `ETAPAS_POLITICA`); los 10 mayores desvíos; liquidez y promedios móviles; volatilidad y correlación móviles. Incluye el diagnóstico de residuos del modelo (vs. ajustados, en el tiempo, histograma, Q-Q y autocorrelación) y las tablas de desvío por etapa, de los 10 mayores desvíos y de diagnósticos de la regresión (Durbin-Watson, Jarque-Bera, asimetría, curtosis, número de condición). |
 
 Cada ejecución queda registrada en `log_ejecucion.txt`.
 
-## 6. Versión del lenguaje y de las librerías
+## 6. Estructura de carpetas
+
+```
+├── codigo/                01, 03 y 04 (ver sección 5)
+├── datos_crudos/          respuesta de la API sin editar: JSON + CSV combinado + un CSV por serie
+├── datos_procesados/      base limpia que usa el análisis (su hash está en la sección 8)
+├── salidas/               resultados de 04_analisis.py
+│   ├── datos_analisis_*.csv      base exacta que entra a la regresión
+│   ├── tabla_*.csv               9 tablas (descriptivos, correlación, regresión, diagnósticos,
+│   │                             prueba de traspaso, desvío por año y por etapa, 10 mayores desvíos)
+│   └── fig_*.png                 32 figuras (series, desvío, liquidez, diagnóstico de residuos)
+├── diccionario_variables.md   definición de cada variable y columna
+├── incidencias_fuente.md      problemas encontrados en los datos de la API y su tratamiento
+├── log_ejecucion.txt          registro de cada ejecución de los scripts
+├── requirements.txt           versiones exactas de las librerías
+└── .env.example               plantilla de variables de entorno (no se necesita ninguna clave)
+```
+
+Todos los archivos de datos y salidas llevan el código de matrícula (`2024200505K`) en el nombre.
+
+## 7. Versión del lenguaje y de las librerías
 
 **Python 3.11.9**
 
@@ -94,7 +114,7 @@ Instalación exacta:
 pip install -r requirements.txt
 ```
 
-## 7. Hash SHA-256 del archivo procesado
+## 8. Hash SHA-256 del archivo procesado
 
 Archivo: `datos_procesados/datos_procesados_2024200505K.csv`
 
@@ -102,6 +122,23 @@ Archivo: `datos_procesados/datos_procesados_2024200505K.csv`
 8c3a2a07b92ac92b5369bd69e96a3bcb2d89b1398f8f4915a413930abdb97c59
 ```
 
-## 8. Repositorio de GitHub
+### Cómo verificar el hash
+
+Desde la carpeta raíz del proyecto, con cualquiera de estas opciones:
+
+```
+# Windows (PowerShell)
+Get-FileHash datos_procesados\datos_procesados_2024200505K.csv -Algorithm SHA256
+
+# Linux / macOS / Git Bash
+sha256sum datos_procesados/datos_procesados_2024200505K.csv
+
+# Python (cualquier sistema)
+python -c "import hashlib; print(hashlib.sha256(open('datos_procesados/datos_procesados_2024200505K.csv','rb').read()).hexdigest())"
+```
+
+El resultado debe ser idéntico al hash de arriba (PowerShell lo muestra en mayúsculas; es el mismo valor). El repositorio guarda los CSV, JSON y TXT sin convertir los saltos de línea (`.gitattributes`), para que el hash coincida también al descargarlos de GitHub. Si se vuelve a ejecutar `03_limpieza_datos.py` con el mismo crudo, el hash que imprime en `log_ejecucion.txt` debe ser el mismo.
+
+## 9. Repositorio de GitHub
 
 https://github.com/jhunior20/tema22-tasas-corto-plazo-bcrp
