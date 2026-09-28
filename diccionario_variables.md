@@ -23,34 +23,36 @@ Fuente de todas las series: API BCRPData del Banco Central de Reserva del Perú.
 | `<variable>_metodo_imputacion` | Método con que se rellenó cada celda. Vacío = dato real del BCRP, sin modificar | texto | vacío, `interpolacion_lineal`, `forward_fill_max5`, `bfill_borde_inicial`, `ffill_borde_final` |
 | `<variable>_outlier` | Marca si el valor está a más de ±4 desviaciones estándar de la media de la serie. Solo se marca; no se elimina ni corrige | booleano | `True`, `False` |
 
-## 3. Variables transformadas para la regresión (`salidas/datos_analisis_2024200505K.csv`)
+## 3. Base de los modelos (`salidas/datos_analisis_2024200505K.csv`)
+
+Generada por `04_analisis.py`; 2869 filas (se elimina la primera, que no tiene cuenta corriente rezagada). Su SHA-256 queda en `salidas/hash_2024200505K.txt`.
 
 | Variable | Descripción | Unidad | Construcción |
 |---|---|---|---|
+| `fecha` | Fecha de la observación | AAAA-MM-DD | – |
+| `tasa_interbancaria_on_end` | Tasa interbancaria overnight (endógena) | % anual | igual que en la sección 1 |
+| `tasa_referencia_escalon` | Tasa de referencia como variable de escalones: la última tasa publicada sigue vigente hasta la siguiente decisión del Directorio | % anual | forward-fill de los valores publicados de `tasa_referencia_exo` (se descartan los interpolados en `03`) |
+| `tasa_cdbcrp_saldo_exo` | Tasa del saldo de CD BCRP | % anual | igual que en la sección 1 |
 | `ln_depositos` | Logaritmo natural de los depósitos del sector público | ln(millones de S/) | `ln(depositos_sector_publico_saldo_exo)` |
 | `ln_ctacte_L1` | Logaritmo natural de las cuentas corrientes de bancos, rezagada 1 día | ln(millones de S/) | `ln(cuentas_corrientes_bancos_bcrp_saldo_exo_L1)` |
 
-Las tres tasas entran a la regresión en nivel (%), con el mismo nombre que en la sección 1.
+## 4. Desvío respecto de la tasa de política
 
-## 4. Desvío respecto de la tasa de política (`salidas/tabla_desvio_por_anio_2024200505K.csv`)
+`desvío = tasa_interbancaria_on_end − tasa_referencia_escalon`, en puntos porcentuales (pp). Positivo = la interbancaria está por encima de la tasa de política. Se calcula en memoria en `04_analisis.py`. La **muestra publicada** son las jornadas en que el BCRP publicó la interbancaria y la referencia (sin imputación); la **completa** incluye los días imputados.
 
-El desvío se calcula en memoria en `04_analisis.py` (no se guarda en `datos_procesados`):
-
-| Variable | Descripción | Unidad | Construcción |
-|---|---|---|---|
-| `desvio_interbancaria_referencia_pp` | Desvío diario de la interbancaria respecto de la tasa de referencia. Positivo = la interbancaria está por encima de la tasa de política | puntos porcentuales | `tasa_interbancaria_on_end − tasa_referencia_exo` |
-
-Columnas de la tabla por año (la última fila resume toda la muestra). `salidas/tabla_desvio_por_etapa_2024200505K.csv` tiene las mismas columnas, pero agrupadas por las 5 etapas de política monetaria (columnas `etapa`, `fecha_inicio` y `fecha_fin` en lugar de `periodo`):
+Columnas de `tabla_desvio_por_anio` (columna `fecha` = año), `tabla_desvio_por_etapa` (columna `etapa`) y `tabla_comparacion_desvio` (columna `muestra`):
 
 | Columna | Descripción |
 |---|---|
-| `periodo` | Año, o `2015-2025` para toda la muestra |
-| `n_dias` | Número de días del periodo |
-| `desvio_medio_pp` | Promedio del desvío (pp) |
-| `desvio_absoluto_medio_pp` | Promedio del valor absoluto del desvío (pp): cuánto se aleja, sin importar el signo |
-| `desv_estandar_pp` | Desviación estándar del desvío (pp) |
-| `desvio_min_pp`, `desvio_max_pp` | Desvío mínimo y máximo del periodo (pp) |
-| `pct_dias_sobre_referencia`, `pct_dias_igual_referencia`, `pct_dias_bajo_referencia` | % de días en que la interbancaria quedó por encima, igual o por debajo de la tasa de referencia |
+| `n` | Número de jornadas |
+| `medio` | Promedio del desvío (pp) |
+| `abs_medio` | Promedio del valor absoluto del desvío (pp): cuánto se aleja, sin importar el signo |
+| `de` | Desviación estándar del desvío (pp) |
+| `min`, `max` | Desvío mínimo y máximo (pp) |
+| `pct_sobre`, `pct_igual`, `pct_bajo` | % de jornadas con la interbancaria por encima, igual o por debajo de la referencia |
+| `pct_banda10`, `pct_sobre25` | Solo en la comparación: % de jornadas con \|desvío\| ≤ 0.10 pp y con \|desvío\| > 0.25 pp |
+
+`tabla_top10_desvios` tiene `fecha`, `ib` (interbancaria), `ref_escalon` (referencia en escalones) y `desvio` de las 10 jornadas publicadas con mayor desvío absoluto.
 
 ## 5. Archivos crudos (`datos_crudos/`)
 

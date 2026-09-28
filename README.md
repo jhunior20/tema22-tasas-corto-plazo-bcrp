@@ -29,7 +29,11 @@ interbancaria = b0 + b1·referencia + b2·CD_BCRP
 | Exógena 3 | PD04668MD | Depósitos del sector público en el BCRP (saldo) | millones S/ |
 | Exógena 4 | PD04665MD | Cuentas corrientes de bancos en el BCRP (saldo), **rezagada 1 día** | millones S/ |
 
-Desvío respecto de la tasa de política: `desvío = interbancaria − referencia` (puntos porcentuales). Como el desvío es la endógena menos la exógena 1, el mismo modelo lo explica: b2, b3 y b4 miden también el efecto sobre el desvío, y la prueba H0: b1 = 1 (traspaso completo) indica si el desvío cambia con el nivel de la tasa de política.
+En `04_analisis.py` la tasa de referencia entra como **variable de escalones**: la última tasa publicada por el BCRP sigue vigente hasta la siguiente decisión del Directorio (no se usa la interpolación de `03`, porque la tasa cambia por decisiones discretas). La primera fila, sin cuenta corriente rezagada, se elimina (n = 2869).
+
+Desvío respecto de la tasa de política: `desvío = interbancaria − referencia (escalones)` (puntos porcentuales), calculado sobre las jornadas con ambas tasas publicadas (muestra principal) y sobre la muestra completa (robustez).
+
+Además del modelo en niveles, el análisis incluye pruebas de raíz unitaria (ADF, KPSS), cointegración de Engle-Granger, el vector de largo plazo (MCO-HAC y DOLS, con la prueba de traspaso unitario θ₁ = 1) y un modelo de corrección de errores (MCE) con su vida media.
 
 ## 3. Fuentes y endpoints
 
@@ -72,7 +76,7 @@ python 04_analisis.py
 | `01_extraccion_api.py` | Descarga las 5 series de la API BCRPData y guarda el crudo intacto (JSON y CSV) en `datos_crudos/`. |
 | `02_scraping_web.py` | **No aplica.** La vía 2 (scraping) es opcional en la Unidad I y no se implementó: todas las series del modelo están disponibles en la API oficial del BCRP. `03` detecta que el archivo no existe y continúa solo con la API. |
 | `03_limpieza_datos.py` | Tipifica, imputa faltantes (tasas: interpolación lineal; saldos: forward-fill máx. 5 días; bordes iniciales: bfill), marca outliers (±4 desv. est.), crea el rezago `_L1` y guarda `datos_procesados/` con su SHA-256. |
-| `04_analisis.py` | Guarda la base exacta que entra al modelo (`datos_analisis`) y genera descriptivos, correlaciones, figuras y la regresión MCO con errores Newey-West en `salidas/`. Además calcula el desvío de la interbancaria respecto de la tasa de referencia (tabla por año y figura) y la prueba de traspaso completo H0: b1 = 1. Genera también figuras complementarias: CD BCRP vs. referencia; dispersión con la línea de 45°; distribución de las tasas, del desvío y de la variación diaria; desvío por año, por mes (mapa de calor) y por las 5 etapas de política monetaria (definidas en `ETAPAS_POLITICA`); los 10 mayores desvíos; liquidez y promedios móviles; volatilidad y correlación móviles. Incluye el diagnóstico de residuos del modelo (vs. ajustados, en el tiempo, histograma, Q-Q y autocorrelación) y las tablas de desvío por etapa, de los 10 mayores desvíos y de diagnósticos de la regresión (Durbin-Watson, Jarque-Bera, asimetría, curtosis, número de condición). |
+| `04_analisis.py` | (1) Separa valores publicados e imputados (cobertura); (2) reconstruye la tasa de referencia en escalones; (3) elimina la fila de borde del rezago; (4) calcula el desvío (muestra publicada y completa, por año, por etapa de política y los 10 mayores); (5) ADF, KPSS y Engle-Granger; (6) vector de largo plazo por MCO-HAC y DOLS; (7) regresión ampliada en niveles y MCE con diagnósticos (Durbin-Watson, Ljung-Box, Breusch-Pagan, Jarque-Bera); (8) vida media con la dinámica completa y robustez sin tramos imputados, más las cifras citadas en el texto del artículo (`tabla_cifras_texto`); (9) figuras; (10) guarda `datos_analisis` y su SHA-256 en `hash_2024200505K.txt`. |
 
 Cada ejecución queda registrada en `log_ejecucion.txt`.
 
@@ -83,10 +87,13 @@ Cada ejecución queda registrada en `log_ejecucion.txt`.
 ├── datos_crudos/          respuesta de la API sin editar: JSON + CSV combinado + un CSV por serie
 ├── datos_procesados/      base limpia que usa el análisis (su hash está en la sección 8)
 ├── salidas/               resultados de 04_analisis.py
-│   ├── datos_analisis_*.csv      base exacta que entra a la regresión
-│   ├── tabla_*.csv               9 tablas (descriptivos, correlación, regresión, diagnósticos,
-│   │                             prueba de traspaso, desvío por año y por etapa, 10 mayores desvíos)
-│   └── fig_*.png                 32 figuras (series, desvío, liquidez, diagnóstico de residuos)
+│   ├── datos_analisis_*.csv      base exacta que entra a los modelos
+│   ├── hash_*.txt                SHA-256 de datos_analisis
+│   ├── tabla_*.csv               15 tablas (cobertura, descriptivos, correlación, desvío,
+│   │                             raíz unitaria, cointegración, largo plazo, regresión, MCE,
+│   │                             diagnósticos y robustez del MCE,
+│   │                             cifras citadas en el texto)
+│   └── fig_*.png                 9 figuras (tasas, desvío, liquidez, autocorrelación del MCE)
 ├── diccionario_variables.md   definición de cada variable y columna
 ├── incidencias_fuente.md      problemas encontrados en los datos de la API y su tratamiento
 ├── log_ejecucion.txt          registro de cada ejecución de los scripts
@@ -107,6 +114,7 @@ Todos los archivos de datos y salidas llevan el código de matrícula (`20242005
 | numpy | 2.4.6 |
 | matplotlib | 3.11.2 |
 | statsmodels | 0.15.0 |
+| scipy | 1.17.1 |
 
 Instalación exacta:
 

@@ -49,6 +49,8 @@ Se usó interpolación lineal en las tres tasas para mantener un mismo criterio.
 
 Estos 5 días representan el 0.17 % de la muestra (5 de 2870) y quedan identificados en la columna `tasa_referencia_exo_metodo_imputacion`. En los otros 102 días interpolados, la tasa era igual antes y después del hueco, así que el valor rellenado coincide con la tasa vigente.
 
+**Corrección en el análisis:** `04_analisis.py` no usa la tasa de referencia interpolada. La reconstruye como variable de escalones (`tasa_referencia_escalon`): toma solo los valores publicados y arrastra la última tasa vigente hasta la siguiente decisión del Directorio. Así ningún día tiene un valor intermedio que el BCRP no fijó. `datos_procesados` se conserva sin cambios, con su columna de imputación, para mantener la trazabilidad. Además, el desvío se calcula principalmente sobre las jornadas con ambas tasas publicadas, y la muestra completa se reporta como robustez (`tabla_comparacion_desvio`).
+
 ## 3. Orden de las series en consultas múltiples
 
 Cuando se piden varias series en una sola consulta, la API las devuelve ordenadas por código (no en el orden pedido). Además, el campo `config.series[].name` trae la descripción de la serie y no su código. Por eso no se puede saber con seguridad a qué serie corresponde cada valor.
